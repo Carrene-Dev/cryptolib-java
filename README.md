@@ -2,7 +2,7 @@
 
 ## PinBlock in Java
 
-Implementation of PinBlock Format 0 based on [ISO-9564]((https://en.wikipedia.org/wiki/ISO_9564)) standard.
+Implementation of PinBlock Format 0 based on [ISO-9564](https://en.wikipedia.org/wiki/ISO_9564) standard.
 The PIN block is constructed by `XOR`-ing two 64-bit fields: the `plain text PIN field` and the `account number field`,
 both of which comprise 16 four-bit `nibble`s.
 
