@@ -1,5 +1,7 @@
 # CryptoLib in Java
 
+This is provided to be built/test/run on [VS Code IDE](https://code.visualstudio.com/docs/java/java-tutorial) easily.
+
 ## PinBlock in Java
 
 Implementation of PinBlock Format 0 based on [ISO-9564](https://en.wikipedia.org/wiki/ISO_9564) standard.
