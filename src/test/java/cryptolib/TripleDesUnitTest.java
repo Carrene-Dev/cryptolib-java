@@ -20,7 +20,7 @@ public class TripleDesUnitTest {
         byte[] bMessage = message.getBytes("utf-8");
         String key = "000102030405060708090A0B";
         byte[] bKey = key.getBytes("utf-8");
-        byte[] bCipherMessage = TripleDes.Encrypt(bMessage, bKey, "DESede/ECB/NoPadding");
+        byte[] bCipherMessage = TripleDes.encrypt(bMessage, bKey, "DESede/ECB/NoPadding");
         String cipherMessage = Base64.getEncoder().encodeToString(bCipherMessage);
         assertEquals(cipherMessage, "eFklvL5qUJQ=");
     }
@@ -32,7 +32,7 @@ public class TripleDesUnitTest {
         byte[] bCipherMessage = Base64.getDecoder().decode(cipherMessage);
         String key = "000102030405060708090A0B";
         byte[] bKey = key.getBytes("utf-8");
-        byte[] bMessage = TripleDes.Decrypt(bCipherMessage, bKey, "DESede/ECB/NoPadding");
+        byte[] bMessage = TripleDes.decrypt(bCipherMessage, bKey, "DESede/ECB/NoPadding");
         String message = new String(bMessage);
         assertEquals( message, "12345678");
     }

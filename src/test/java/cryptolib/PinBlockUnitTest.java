@@ -17,8 +17,8 @@ public class PinBlockUnitTest
         String pin = "1234";
         String pan = "6037997390214444";
         String hexKey = "000102030405060708090A0B0C0D0E0F";
-        byte[] bKey = TripleDes.MakeupKey(hexKey);
-        String extendedPinBlock = Pinblock.Encode(pin, pan, bKey);
+        byte[] bKey = TripleDes.makeupKey(hexKey);
+        String extendedPinBlock = Pinblock.encode(pin, pan, bKey);
         assertEquals( extendedPinBlock, "C7933494F32B43F6");
     }
 
@@ -28,8 +28,8 @@ public class PinBlockUnitTest
         String pan = "6037997390214444";
         String hexKey = "000102030405060708090A0B0C0D0E0F";
         String extendedPinBlock = "C7933494F32B43F6";
-        byte[] bKey = TripleDes.MakeupKey(hexKey);
-        String pin = Pinblock.Decode(extendedPinBlock, pan, bKey);
+        byte[] bKey = TripleDes.makeupKey(hexKey);
+        String pin = Pinblock.decode(extendedPinBlock, pan, bKey);
         assertEquals( pin, "1234");
     }
 }

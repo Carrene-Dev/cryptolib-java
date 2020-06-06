@@ -26,7 +26,7 @@ public class TripleDes {
 	 * @param transfoormation   the 3DES transformation e.g. DESede/ECB/NOPADDING
 	 * @return cipher message
 	 */
-    public static byte[] Encrypt(byte[] bMessage, byte[] bKey, String transformation)
+    public static byte[] encrypt(byte[] bMessage, byte[] bKey, String transformation)
     {
         try {
             final SecretKey secretKey = new SecretKeySpec(bKey, "DESede");
@@ -55,7 +55,7 @@ public class TripleDes {
 	 * @param transfoormation   the 3DES transformation e.g. DESede/ECB/NOPADDING
 	 * @return plain message
 	 */
-    public static byte[] Decrypt(byte[] bCipherMessage, byte[] bKey, String transformation)
+    public static byte[] decrypt(byte[] bCipherMessage, byte[] bKey, String transformation)
     {
         try {
             final SecretKey secretKey = new SecretKeySpec(bKey, "DESede");
@@ -81,7 +81,7 @@ public class TripleDes {
 	 * @return make up a 24-bytes key by using the same 8-byte encription key if the
 	 *         input key length is 16 bytes.
 	 */
-	public static byte[] MakeupKey(String hexKey) {
+	public static byte[] makeupKey(String hexKey) {
 		byte[] keyBytes;
 		try {
 			keyBytes = Hex.decodeHex(hexKey.toCharArray());
@@ -103,7 +103,7 @@ public class TripleDes {
 	 * @param keySeed   initial seed to build a key
 	 * @return          3DES secret key
 	 */
-	public static byte[] BuildKey(String keySeed) {
+	public static byte[] buildKey(String keySeed) {
 		try {
 			MessageDigest md = MessageDigest.getInstance("SHA-256");
 			final byte[] digestOfPassword = md.digest(keySeed.getBytes("utf-8"));

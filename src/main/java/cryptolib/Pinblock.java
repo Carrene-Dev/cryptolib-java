@@ -36,12 +36,12 @@ public class Pinblock {
 	 * @param key    the 3DES (EDE/ECB/NOPADDING) key
 	 * @return pinblock in HEX format
 	 */
-	public static String Encode(String pin, String pan, byte[] key) {
+	public static String encode(String pin, String pan, byte[] key) {
 		try {
 			final String pinLenHead = StringUtils.leftPad(Integer.toString(pin.length()), 2, '0') + pin;
 			final String pinData = StringUtils.rightPad(pinLenHead, 16, 'F');
 			final byte[] bPin = Hex.decodeHex(pinData.toCharArray());
-			final String panPart = ExtractPanAccountNumberPart(pan);
+			final String panPart = extractPanAccountNumberPart(pan);
 			final String panData = StringUtils.leftPad(panPart, 16, '0');
 			final byte[] bPan = Hex.decodeHex(panData.toCharArray());
 
@@ -49,7 +49,7 @@ public class Pinblock {
 			for (int i = 0; i < 8; i++)
 				pinblock[i] = (byte) (bPin[i] ^ bPan[i]);
 
-			final byte[] extendedPinblock = TripleDes.Encrypt(pinblock, key, "DESede/ECB/NoPadding");
+			final byte[] extendedPinblock = TripleDes.encrypt(pinblock, key, "DESede/ECB/NoPadding");
 
 			return Hex.encodeHexString(extendedPinblock).toUpperCase();
 
@@ -62,7 +62,7 @@ public class Pinblock {
 	 * @param accountNumber PAN - primary account number
 	 * @return extract right-most 12 digits of the primary account number (PAN)
 	 */
-	private static String ExtractPanAccountNumberPart(String accountNumber) {
+	private static String extractPanAccountNumberPart(String accountNumber) {
 		String accountNumberPart = null;
 		if (accountNumber.length() > 12)
 			accountNumberPart = accountNumber.substring(accountNumber.length() - 13, accountNumber.length() - 1);
@@ -79,13 +79,13 @@ public class Pinblock {
 	 * @param key   the 3DES (EDE/ECB/NOPADDING) key 
 	 * @return clean PIN
 	 */
-	public static String Decode(String extendedPinBlock, String pan, byte[] key) {
+	public static String decode(String extendedPinBlock, String pan, byte[] key) {
 		try {
 
 			final byte[] bExtendedPinblock = Hex.decodeHex(extendedPinBlock.toCharArray());
-			final byte[] bPinBlock = TripleDes.Decrypt(bExtendedPinblock, key, "DESede/ECB/NoPadding");
+			final byte[] bPinBlock = TripleDes.decrypt(bExtendedPinblock, key, "DESede/ECB/NoPadding");
 
-			final String panPart = ExtractPanAccountNumberPart(pan);
+			final String panPart = extractPanAccountNumberPart(pan);
 			final String panData = StringUtils.leftPad(panPart, 16, '0');
 			final byte[] bPan = Hex.decodeHex(panData.toCharArray());
 
