@@ -34,7 +34,7 @@ https://neapay.com/online-tools/calculate-pin-block.html
 
 - Encryption / Decryption
 
-## Debug/Run
+## Debug/Run/Unit-test/Benchmark
 
 This is provided to be built/test/run on [VS Code IDE](https://code.visualstudio.com/docs/java/java-tutorial) easily.
 If you would like to build it in command line, you can use:
