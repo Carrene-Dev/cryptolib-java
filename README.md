@@ -1,7 +1,5 @@
 # CryptoLib in Java
 
-This is provided to be built/test/run on [VS Code IDE](https://code.visualstudio.com/docs/java/java-tutorial) easily.
-
 ## PinBlock in Java
 
 Implementation of PinBlock Format 0 based on [ISO-9564](https://en.wikipedia.org/wiki/ISO_9564) standard.
@@ -35,3 +33,29 @@ https://neapay.com/online-tools/calculate-pin-block.html
 - Makeup secret keys to be suitable for 3DES encryption
 
 - Encryption / Decryption
+
+## Debug/Run
+
+This is provided to be built/test/run on [VS Code IDE](https://code.visualstudio.com/docs/java/java-tutorial) easily.
+If you would like to build it in command line, you can use:
+
+``` bash
+mvn clean package
+```
+
+The unit-tests will be run automatically in this way.
+But to run the sample `PinBlockApp.java` manually, you can run the following command:
+
+```bash
+cd cryptolib
+java -cp target/cryptolib-0.1.0.jar cryptolib.PinBlockApp
+```
+
+Before running this command, please check the built `cryptolib` jar file version/name.
+
+The benchmarks also can be run by the following commands:
+
+```bash
+cd benchmark
+java -jar target/benchmarks.jar
+```
