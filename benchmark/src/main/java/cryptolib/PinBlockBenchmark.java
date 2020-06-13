@@ -40,21 +40,33 @@ public class PinBlockBenchmark {
 
     @State(Scope.Thread)
     public static class KeyState {
-        String keySeed = "My uinque id";
-        public byte[] bKey = TripleDes.buildKey(keySeed);
+        public String pin = "1234";
+        public String pan = "6037997390214444";
+        String hexKey = "000102030405060708090A0B0C0D0E0F";
+        public byte[] bKey = TripleDes.makeupKey(hexKey);
+        public String extendedPinBlock = "C7933494F32B43F6";
     }
 
     @Benchmark 
     @BenchmarkMode(Mode.Throughput)
     @OutputTimeUnit(TimeUnit.SECONDS)
-    @Warmup(iterations = 1)
-    @Measurement(iterations = 1)
+    @Warmup(iterations = 1, time = 1, timeUnit = TimeUnit.SECONDS)
+    @Measurement(iterations = 1, time = 10, timeUnit = TimeUnit.SECONDS)
     @Fork(value = 1, warmups = 1)
     public void testEncode(KeyState state, Blackhole blackhole) {
-        String pin = "1234";
-        String pan = "6037997390214444";
-        String extendedPinBlock = Pinblock.encode(pin, pan, state.bKey);
+        String extendedPinBlock = Pinblock.encode(state.pin, state.pan, state.bKey);
         blackhole.consume(extendedPinBlock);
+    }
+
+    @Benchmark 
+    @BenchmarkMode(Mode.Throughput)
+    @OutputTimeUnit(TimeUnit.SECONDS)
+    @Warmup(iterations = 1, time = 1, timeUnit = TimeUnit.SECONDS)
+    @Measurement(iterations = 1, time = 10, timeUnit = TimeUnit.SECONDS)
+    @Fork(value = 1, warmups = 1)
+    public void testDecode(KeyState state, Blackhole blackhole) {
+        String pin = Pinblock.decode(state.extendedPinBlock, state.pan, state.bKey);
+        blackhole.consume(pin);
     }
 
 }
